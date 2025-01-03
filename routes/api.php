@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\SubscriptionController;
 
 Route::group([
     'middleware' => 'api',
@@ -26,4 +27,5 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('themes', [ThemeController::class, 'index']);
     Route::get('themes/{theme_id}/articles', [ThemeController::class, 'getArticlesByTheme']);
+    Route::post('subscribe/{theme_id}', [SubscriptionController::class, 'subscribe']);
 });
