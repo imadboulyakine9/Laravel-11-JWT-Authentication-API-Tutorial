@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\BrowsingHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
@@ -21,6 +23,16 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::findOrFail($id);
+
+        // Log browsing history
+        if (Auth::check()) {
+            BrowsingHistory::create([
+                'user_id' => Auth::id(),
+                'article_id' => $id,
+                'viewed_at' => now(),
+            ]);
+        }
+
         return response()->json([
             'status' => true,
             'message' => 'Article found successfully',
