@@ -23,4 +23,16 @@ class SubscriptionController extends Controller
             'data' => $subscription
         ], 201);
     }
+
+    public function getSubscriptions()
+    {
+        $user = Auth::user();
+        $subscriptions = Subscription::where('user_id', $user->id)->with('theme')->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Subscriptions retrieved successfully',
+            'data' => $subscriptions
+        ], 200);
+    }
 }

@@ -28,4 +28,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('themes', [ThemeController::class, 'index']);
     Route::get('themes/{theme_id}/articles', [ThemeController::class, 'getArticlesByTheme']);
     Route::post('subscribe/{theme_id}', [SubscriptionController::class, 'subscribe']);
+    Route::get('subscribe', [SubscriptionController::class, 'getSubscriptions']);
 });
